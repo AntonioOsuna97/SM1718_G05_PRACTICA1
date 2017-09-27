@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 //Codigo fragmento vacio
 
@@ -66,7 +69,28 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Con el inflate dibuja el layoout
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        //Ya tengo una vista con todos los botones
+        View fragment = inflater.inflate(R.layout.fragment_login, container, false);
+
+        //Quiero tener acceso a un objeto boton
+        //Hacemos un casting
+        Button connect = (Button) fragment.findViewById(R.id.button_login);
+        //Buscar si edidText es el de usuario
+        final EditText name= (EditText) fragment.findViewById(R.id.editText);   //Se declara como final por rendimiento ¿?
+
+        //Vincular un evento a un boton
+        connect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String nombre = name.getText().toString();
+                Toast.makeText(getContext(), nombre, Toast.LENGTH_LONG).show();
+            }
+    });
+
+
+        return fragment;
     }
 
 }
+
