@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SM1718_G05_PRACTICA1</string>
+    <string name="fragment_escrito_contraseña">password</string>
+    <string name="fragment_login_Direccion">IP</string>
+</resources>

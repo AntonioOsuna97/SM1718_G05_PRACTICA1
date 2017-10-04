@@ -1,6 +1,7 @@
 package es.ujaen.git.sm1718_g05_practica1;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.R;
 
 //Codigo fragmento vacio
 
@@ -76,15 +78,47 @@ public class LoginFragment extends Fragment {
         //Hacemos un casting
         Button connect = (Button) fragment.findViewById(R.id.button_login);
         //Buscar si edidText es el de usuario
-        final EditText name= (EditText) fragment.findViewById(R.id.editText);   //Se declara como final por rendimiento ¿?
+        final EditText name= (EditText) fragment.findViewById(R.id.editText);   //Se declara como final por rendimiento
+        final EditText pass= (EditText) fragment.findViewById(R.id.editTextPort);   //Mirad aqui
+        final EditText ip= (EditText) fragment.findViewById(R.id.editTextip);   //Corregir
+        final EditText port= (EditText) fragment.findViewById(R.id.editTextport);   //Corregir
 
         //Vincular un evento a un boton
         connect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                String nombre = name.getText().toString();
-                Toast.makeText(getContext(), nombre, Toast.LENGTH_LONG).show();
+                //Permite extraer ñlos cuatro valores
+                public void onClick(View v){
+                    String s_user = user.getText().toString();
+                    String s_pass = pass.getText().toString();
+                    String s_ip= ip.getText().toString();
+                    String s_port = port.getText().toString();
+                    short port2=0;
+                    //Capturar excepcion para que no nos de error cuando puelsamos el boton de conectar
+                    try{
+                        //Short necesitamos parsear para convertirlo a
+                        port2= Short.parseShort(s_port);
+                    }catch (java.lang.NumberFormatException ex){
+                        port2 = 6000;
+                    }
+
+
+
+                ConnectionUserData data= new ConnectionUserData(s_user,s_pass,s_ip,port2);
+
+                //Cada vez que le das a conectar te saldran estos datos
+                Toast.makeText(getContext(),"Hola"+s_user+" "+s_pass+" "+s_ip+":"+s_port, Toast.LENGTH_LONG).show();
+
+                //Forma de llamar a una actividad (PUNTO 5)
+                    Intent nueva= new Intent(getActivity(),ServiceActivity.class);
+                    //Introducimos los datos
+                    //Constante en user, creada en servicEActivity
+                    nueva.putExtra(ServiceActivity.PARAM_USER, data.getUser());
+                    nueva.putExtra("param_pass", data.getPass());
+                    nueva.putExtra("param_IP", data.getConnectionIP());
+                    nueva.putExtra("param_PORT", data.getConnectionPort());
+
+                    //Empieza la actividad y puede leer los parámetros
+                    startActivity(nueva);
             }
     });
 

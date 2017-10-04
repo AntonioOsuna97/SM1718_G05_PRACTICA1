@@ -1,3 +1,5 @@
+<!--Esta parte, -> como se comporta mi aplicacion -->
+
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="es.ujaen.git.sm1718_g05_practica1">
@@ -15,6 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ServiceActivity"></activity>
     </application>
 
 </manifest>
